@@ -69,10 +69,9 @@ pub fn build_ui(app: &Application) {
     header_bar.pack_start(&menu_button);
 
     let main_box = GtkBox::builder().orientation(Orientation::Vertical).build();
-    main_box.append(&header_bar);
     main_box.append(&widget_box);
 
-    // Create a window and set the title
+    // Create a window and set the titlebar
     let window = ApplicationWindow::builder()
         .application(app)
         .title("GTK Markdown")
@@ -80,6 +79,7 @@ pub fn build_ui(app: &Application) {
         .default_height(720)
         .child(&main_box)
         .build();
+    window.set_titlebar(Some(&header_bar));
 
     setup_open_action(&window, &editor_buffer);
     setup_save_action(&window, &editor_buffer);
