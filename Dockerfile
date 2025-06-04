@@ -1,10 +1,10 @@
-# Usa Debian unstable come base per ottenere versioni aggiornate dei pacchetti
+# Use Debian unstable as base to get up-to-date packages
 FROM debian:sid
 
-# Imposta variabili di ambiente per non avere richieste interattive
+# Set environment variables to avoid interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Aggiorna e installa dipendenze base, GTK4, WebKit2GTK e Rust
+# Update and install base dependencies, GTK4, WebKit2GTK, and Rust
 RUN apt-get update && apt-get install -y \
     curl \
     build-essential \
@@ -20,17 +20,16 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Installa rustup e Rust stable
+# Install rustup and stable Rust
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-# Copia i file del progetto nella directory di lavoro
+# Copy the project files into the working directory
 WORKDIR /app
 COPY . .
 
-# Compila l'applicazione in release
+# Build the application in release mode
 RUN cargo build --release
 
-# Comando di default per eseguire l'app
+# Default command to run the app
 CMD ["./target/release/gtk-markdown"]
-
