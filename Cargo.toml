@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 gtk = { version = "0.9.6", package = "gtk4", features = ["v4_18"] }
 pulldown-cmark = "0.13.0"
+webkit6 = "0.4"
