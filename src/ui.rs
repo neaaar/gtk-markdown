@@ -3,19 +3,18 @@ use gtk::{
     gio, gio::SimpleAction, Application, ApplicationWindow, Box as GtkBox, HeaderBar, MenuButton,
     Orientation, PopoverMenu, ScrolledWindow, TextView,
 };
+use webkit6::prelude::*;
+use webkit6::WebView;
 
 use crate::callbacks::{setup_open_action, setup_save_action};
 use crate::markdown::to_html;
 
 pub fn build_ui(app: &Application) {
     let editor = TextView::builder().top_margin(2).left_margin(2).build();
-    let previewer = TextView::builder()
-        .editable(false)
-        .cursor_visible(false)
-        .build();
+    let previewer = WebView::builder().build();
 
     let editor_buffer = editor.buffer();
-    let previewer_buffer = previewer.buffer();
+    let previewer_clone = previewer.clone();
 
     editor_buffer.connect_changed(move |buf| {
         // 1) Read everything from the buffer
@@ -27,7 +26,7 @@ pub fn build_ui(app: &Application) {
         let html = to_html(&text);
 
         // 3) Update previewer (with pure HTML for now)
-        previewer_buffer.set_text(&html);
+        previewer_clone.load_html(&html, None);
     });
 
     let scroll_editor = ScrolledWindow::builder()
