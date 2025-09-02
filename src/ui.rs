@@ -13,6 +13,9 @@ pub fn build_ui(app: &Application) {
     let editor = TextView::builder().top_margin(2).left_margin(2).build();
     let previewer = WebView::builder().build();
 
+    // Initialize previewer with empty html
+    previewer.load_html("<html><body style='background:white;'></body></html>", None);
+
     let editor_buffer = editor.buffer();
     let previewer_clone = previewer.clone();
 
