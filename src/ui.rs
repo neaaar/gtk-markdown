@@ -7,7 +7,7 @@ use webkit6::prelude::*;
 use webkit6::WebView;
 
 use crate::callbacks::{setup_open_action, setup_save_action};
-use crate::markdown::to_html;
+use crate::preview::update_preview;
 
 pub fn build_ui(app: &Application) {
     let editor = TextView::builder().top_margin(2).left_margin(2).build();
@@ -17,20 +17,7 @@ pub fn build_ui(app: &Application) {
     previewer.load_html("<html><body style='background:white;'></body></html>", None);
 
     let editor_buffer = editor.buffer();
-    let previewer_clone = previewer.clone();
-
-    editor_buffer.connect_changed(move |buf| {
-        // 1) Read everything from the buffer
-        let text = buf
-            .text(&buf.start_iter(), &buf.end_iter(), false)
-            .to_string();
-
-        // 2) Convert it to HTML
-        let html = to_html(&text);
-
-        // 3) Update previewer (with pure HTML for now)
-        previewer_clone.load_html(&html, None);
-    });
+    update_preview(&editor_buffer, &previewer);
 
     let scroll_editor = ScrolledWindow::builder()
         .child(&editor)
