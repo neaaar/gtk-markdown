@@ -2,6 +2,9 @@
 name = "gtkmarkdown"
 version = "0.1.0"
 edition = "2021"
+authors = ["Marco Farioli <marco.farioli@outlook.it>"]
+license = "MIT"
+repository = "https://github.com/neaaar/gtk-markdown"
 
 [dependencies]
 gtk = { version = "0.9.6", package = "gtk4", features = ["v4_18"] }
