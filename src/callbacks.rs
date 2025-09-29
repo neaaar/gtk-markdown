@@ -34,6 +34,25 @@ pub fn setup_open_action(window: &ApplicationWindow, editor_buffer: &TextBuffer)
                     move |result| {
                         if let Ok(file) = result {
                             if let Some(path) = file.path() {
+                                // Check extensions
+                                let allowed = ["md", "txt"];
+                                if let Some(ext) = path.extension().and_then(|e| e.to_str()) {
+                                    if !allowed.contains(&ext) {
+                                        show_error_dialog(
+                                            &window_for_dialog,
+                                            &format!("File type not supported: .{}", ext),
+                                        );
+                                        return;
+                                    }
+                                } else {
+                                    show_error_dialog(
+                                        &window_for_dialog,
+                                        "File has no extension and cannot be opened.",
+                                    );
+                                    return;
+                                }
+
+                                // If extensions are ok, read file
                                 match fs::read_to_string(&path) {
                                     Ok(content) => {
                                         buffer_clone.set_text(&content);
