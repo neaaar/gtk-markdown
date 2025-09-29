@@ -11,30 +11,30 @@ featuring a real-time preview powered by **WebKitGTK** and **Highlight.js** for 
 The project is currently under development and runs inside a Docker container.
 
 ## Features
-- Text editor with Markdown support.
-- Real-time document preview.
-- Syntax highlighting in code blocks using [highlight.js](https://highlightjs.org/).
-- GTK4 interface consistent with GNOME design.
+- Text editor with Markdown support
+- Real-time document preview
+- Syntax highlighting in code blocks using [highlight.js](https://highlightjs.org/)
+- GTK4 interface consistent with GNOME design
 
 ---
 
 ## Requirements
-- [Docker](https://docs.docker.com/get-docker/) installed on the host system.
-- A Linux system with **X11** support (required to display the GUI from inside the container).  
-  - On Wayland, you can run it via XWayland.
+- [Docker](https://docs.docker.com/get-docker/) installed on the host system
+- A Linux system with **X11** support (required to display the GUI from inside the container)
+  - On Wayland, you can run it via XWayland
 
 ---
 
 ## How to run
 
-### Build the container
-Clone the repository:
+### Clone the repository
 ```bash
 git clone https://github.com/neaaar/gtk-markdown.git
 cd gtk-markdown
 ```
 
-Build the Docker image:
+### Build the Docker image
+Run the following command while inside the project folder:
 ```bash
 docker build -t gtk-markdown .
 ```
@@ -49,7 +49,7 @@ This mounts the project folder into `/app` inside the container and starts an in
 ### Start the application
 Inside the container, run:
 ```bash
-cargo run
+cargo run --release
 ```
 The application will be compiled and launched.
 
@@ -63,3 +63,7 @@ You should see the GTK Markdown editor window appear on your host desktop.
 - Includes the GitHub highlight.js CSS theme (BSD-3-Clause).
 
 For details, see [NOTICE.md](NOTICE.md).
+
+---
+
+This README.md file was entirely coded and previewed using GTK Markdown.
