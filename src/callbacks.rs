@@ -56,6 +56,11 @@ pub fn setup_open_action(window: &ApplicationWindow, editor_buffer: &TextBuffer)
                                 match fs::read_to_string(&path) {
                                     Ok(content) => {
                                         buffer_clone.set_text(&content);
+
+                                        // Move cursor to start and remove any selection
+                                        let start_iter = buffer_clone.start_iter();
+                                        buffer_clone.place_cursor(&start_iter);
+                                        buffer_clone.select_range(&start_iter, &start_iter);
                                     }
                                     Err(err) => {
                                         show_error_dialog(
