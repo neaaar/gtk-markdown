@@ -1,5 +1,6 @@
 mod callbacks;
 mod markdown;
+mod navigation;
 mod preview;
 mod ui;
 mod ui_helpers;

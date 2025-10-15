@@ -7,6 +7,7 @@ use webkit6::prelude::*;
 use webkit6::WebView;
 
 use crate::callbacks::{setup_open_action, setup_save_action};
+use crate::navigation::setup_navigation;
 use crate::preview::update_preview;
 
 pub fn build_ui(app: &Application) {
@@ -72,6 +73,7 @@ pub fn build_ui(app: &Application) {
 
     setup_open_action(&window, &editor_buffer);
     setup_save_action(&window, &editor_buffer);
+    setup_navigation(&previewer);
 
     // Present window
     window.present();
